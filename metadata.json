@@ -1,0 +1,6 @@
+{
+  "name": "Soriya Voice",
+  "description": "A Khmer-first text-to-speech studio that converts Khmer Unicode writing into clear, downloadable speech audio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

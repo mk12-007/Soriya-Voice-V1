@@ -1,0 +1,102 @@
+{
+  "name": "soriya-voice",
+  "productName": "Soriya Voice",
+  "version": "1.0.0",
+  "description": "Soriya Voice Khmer Text-to-Speech Studio for macOS",
+  "author": "Soriya Voice Team",
+  "private": true,
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "bun server.ts 2>/dev/null || tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs",
+    "preview": "vite preview",
+    "clean": "rm -rf dist server.js release dist_electron",
+    "lint": "tsc --noEmit",
+    "electron:dev": "cross-env NODE_ENV=development electron electron/main.cjs",
+    "electron:build": "npm run build && electron-builder --mac --arm64"
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@rollup/wasm-node": "^4.62.4",
+    "@tailwindcss/oxide-wasm32-wasi": "^4.3.3",
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^5.0.4",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "lightningcss-wasm": "^1.33.0",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^6.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "autoprefixer": "^10.4.21",
+    "cross-env": "^7.0.3",
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "wait-on": "^8.0.2"
+  },
+  "build": {
+    "appId": "com.soriyavoice.studio",
+    "productName": "Soriya Voice",
+    "copyright": "Copyright © 2026 Soriya Voice Studio",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "server/**/*",
+      "shared/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png",
+      "category": "public.app-category.productivity",
+      "identity": null
+    },
+    "dmg": {
+      "title": "Soriya Voice Studio ${version}",
+      "contents": [
+        {
+          "x": 130,
+          "y": 200
+        },
+        {
+          "x": 410,
+          "y": 200,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      }
+    }
+  }
+}
